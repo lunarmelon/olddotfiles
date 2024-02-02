@@ -25,3 +25,7 @@ alias gps='git push'
 alias gpl='git pull'
 alias gcl='git clone'
 alias gch='git checkout'
+
+# Misc
+alias neof='neofetch'
+alias ht='htop'

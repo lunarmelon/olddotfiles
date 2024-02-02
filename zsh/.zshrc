@@ -13,6 +13,11 @@ fi
 source "${ZDOTDIR}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 source "${ZDOTDIR}/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "${ZDOTDIR}/plugins/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh"
+source "${ZDOTDIR}/plugins/zsh-autopair/autopair.zsh"
+source "${ZDOTDIR}/plugins/zsh-supercharge/supercharge.plugin.zsh"
+source "${ZDOTDIR}/plugins/zsh-eza/eza.plugin.zsh"
+source "${ZDOTDIR}/plugins/zsh-sudo/sudo.plugin.zsh"
+source "${ZDOTDIR}/plugins/zsh-you-should-use/zsh-you-should-use.plugin.zsh"
 
 # Substring search keybinds
 zmodload zsh/terminfo
