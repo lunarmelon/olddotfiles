@@ -72,7 +72,11 @@ local config = function()
 	lspconfig.bashls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
-		filetypes = { "sh", "aliasrc" },
+		filetypes = {
+			"sh",
+			"aliasrc",
+			"zshrc",
+		},
 	})
 
 	-- embedded html
@@ -215,5 +219,6 @@ return {
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-path",
 	},
 }

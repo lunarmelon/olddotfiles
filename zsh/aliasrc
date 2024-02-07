@@ -26,6 +26,9 @@ alias gpl='git pull'
 alias gcl='git clone'
 alias gch='git checkout'
 
+# Scripts
+alias print-colors='sh ~/.repos/scripts/print_colors.sh'
+
 # Misc
 alias neof='neofetch'
 alias ht='htop'
