@@ -10,3 +10,4 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 
 export PATH=$PATH:/home/melon/.spicetify
+export PATH=$PATH:/home/melon/.cargo/bin

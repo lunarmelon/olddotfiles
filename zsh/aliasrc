@@ -32,3 +32,4 @@ alias print-colors='sh ~/.repos/scripts/print_colors.sh'
 # Misc
 alias neof='neofetch'
 alias ht='htop'
+alias term-colors='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
