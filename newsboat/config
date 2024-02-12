@@ -1,0 +1,13 @@
+# Theme
+color background          color255  color0
+color listnormal          color255  color0
+color listfocus           yellow    color235    bold
+color listnormal_unread   color255  color0
+color listfocus_unread    color255  color235    bold
+color title               color99   color0      bold
+color info                yellow    color0      bold
+color hint-key            color98    color235      bold
+color hint-keys-delimiter color98    color235
+color hint-separator      color98    color235    bold
+color hint-description    magenta   color235
+color article             color255  color0
