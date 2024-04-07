@@ -5,9 +5,10 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 export TERMINAL="kitty"
-export BROWSER="firefox"
+export BROWSER="librewolf"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
 export PATH=$PATH:/home/melon/.spicetify
 export PATH=$PATH:/home/melon/.cargo/bin
+export PATH="$PATH:/home/melon/.local/share/JetBrains/Toolbox/scripts"
