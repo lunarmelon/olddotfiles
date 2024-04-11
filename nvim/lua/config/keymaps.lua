@@ -15,3 +15,7 @@ keymap.set("n", "<C-l>", "<C-w>l", opts)  -- Navigate right
 -- Window management
 keymap.set("n", "<leader>sv", ":vsplit<CR>", opts) -- Split vertically
 keymap.set("n", "<leader>sh", ":split<CR>", opts) -- Split horizontally
+
+-- Bufferline
+keymap.set("n", "<Tab>", ":bn<CR>", opts)
+keymap.set("n", "<S-Tab>", ":bp<CR>", opts)

@@ -104,6 +104,8 @@ local config = function()
 		on_attach = on_attach,
 		filetypes = {
 			"html",
+			"typescriptreact",
+			"javascriptreact",
 		},
 	})
 
@@ -124,6 +126,16 @@ local config = function()
 		on_attach = on_attach,
 		filetypes = {
 			"css",
+		},
+	})
+
+	lspconfig.tailwindcss.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"css",
+			"typescriptreact",
+			"javascriptreact",
 		},
 	})
 
