@@ -1,4 +1,6 @@
 local on_attach = require("util.lsp").on_attach
+local typescript_organise_imports = require("util.lsp").typescript_organise_imports
+local diagnostic_signs = require("util.icons").diagnostic_signs
 
 local config = function()
 	require("neoconf").setup({})
@@ -6,9 +8,7 @@ local config = function()
 	local lspconfig = require("lspconfig")
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
-	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-
-	for type, icon in pairs(signs) do
+	for type, icon in pairs(diagnostic_signs) do
 		local hl = "DiagnosticsSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 	end
@@ -59,6 +59,15 @@ local config = function()
 			"typescript",
 			"typescriptreact",
 		},
+		commands = {
+			TypeScriptOrganizeImports = typescript_organise_imports,
+		},
+		settings = {
+			typescript = {
+				indentStyle = "Space",
+				indentSize = "2",
+			},
+		},
 		root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
 	})
 
@@ -83,6 +92,15 @@ local config = function()
 			"sh",
 			"aliasrc",
 			"zshrc",
+		},
+	})
+
+	-- perl
+	lspconfig.perlnavigator.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"perl",
 		},
 	})
 
@@ -135,6 +153,7 @@ local config = function()
 		},
 	})
 
+	-- tailwindcss
 	lspconfig.tailwindcss.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -153,6 +172,16 @@ local config = function()
 			"clangd",
 			"--offset-encoding=utf-16",
 		},
+	})
+
+	-- java
+	lspconfig.jdtls.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		cmd = {
+         "java",
+         "--offset-encoding=utf-16",
+      },
 	})
 
 	local luacheck = require("efmls-configs.linters.luacheck")
@@ -198,6 +227,8 @@ local config = function()
 			"css",
 			"c",
 			"cpp",
+			"perl",
+			"java",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -225,7 +256,8 @@ local config = function()
 				css = { stylelint, prettierd },
 				c = { clangformat, cpplint },
 				cpp = { clangformat, cpplint },
-				dockerfile = { hadolint, prettierd },
+				docker = { hadolint, prettierd },
+				java = { clangformat, checkstyle },
 			},
 		},
 	})
