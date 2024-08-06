@@ -1,0 +1,38 @@
+# Package managers
+alias apt='sudo apt'
+alias nala='sudo nala'
+alias dnf='sudo dnf'
+alias pac='sudo pacman'
+
+# Python
+alias py='python3'
+
+# Vim and Neovim
+alias nv='nvim'
+alias v='vim'
+
+# Git
+alias gst='git status'
+alias ga='git add'
+alias gaa='git add --all'
+
+alias gc='git commit'
+alias gcm='git commit -m'
+
+alias gps='git push'
+alias gpl='git pull'
+alias gcl='git clone'
+alias gs='git switch'
+
+# Newsboat
+alias nws='newsboat'
+
+# Scripts
+alias print-colors='sh ~/.repos/scripts/print_colors.sh'
+
+# Misc
+alias rel='source $ZDOTDIR/.zshrc'
+alias neof='neofetch'
+alias ht='htop'
+alias bt='bpytop'
+alias :q='echo "No estas en Vim, chamaco baboso"'
