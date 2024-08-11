@@ -1,11 +1,11 @@
 return {
-	--"catppuccin/nvim",
-	"folke/tokyonight.nvim",
+	"catppuccin/nvim",
+	--"folke/tokyonight.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		--vim.cmd("colorscheme catppuccin")
-		vim.cmd("colorscheme tokyonight-night")
+		vim.cmd("colorscheme catppuccin-mocha")
+		--vim.cmd("colorscheme tokyonight-night")
 		-- Colors for indent-blankline
 		vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
 		vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
