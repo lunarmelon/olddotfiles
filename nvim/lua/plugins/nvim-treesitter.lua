@@ -4,12 +4,18 @@ local config = function()
 		indent = {
 			enable = true,
 		},
+		autotag = {
+			enable = true,
+		},
 		event = {
 			"BufReadPre",
 			"BufNewFile",
 		},
 		ensure_installed = {
+			"vim",
+			"regex",
 			"rust",
+			"markdown",
 			"json",
 			"javascript",
 			"typescript",
@@ -22,10 +28,6 @@ local config = function()
 			"dockerfile",
 			"gitignore",
 			"python",
-			"vue",
-			"vim",
-			"regex",
-			"markdown",
 			"toml",
 		},
 		auto_install = true,

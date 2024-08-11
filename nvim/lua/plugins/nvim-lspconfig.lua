@@ -1,6 +1,6 @@
 local on_attach = require("util.lsp").on_attach
-local typescript_organise_imports = require("util.lsp").typescript_organise_imports
 local diagnostic_signs = require("util.icons").diagnostic_signs
+local typescript_organise_imports = require("util.lsp").typescript_organise_imports
 
 local config = function()
 	require("neoconf").setup({})
@@ -8,28 +8,24 @@ local config = function()
 	local lspconfig = require("lspconfig")
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
-	for type, icon in pairs(diagnostic_signs) do
-		local hl = "DiagnosticsSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-	end
-
 	-- lua
 	lspconfig.lua_ls.setup({
-		capabilites = capabilities,
+		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = { -- custom settings for lua
 			Lua = {
 				-- make the language server recognize "vim" global
 				diagnostics = {
 					globals = { "vim" },
+					disable = { "missing-fields" },
 				},
 				workspace = {
-					-- make language server aware of runtime files
 					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.stdpath("config") .. "/lua"] = true,
+						vim.fn.expand("$VIMRUNTIME/lua"),
+						vim.fn.expand("$XDG_CONFIG_HOME") .. "/nvim/lua",
 					},
 				},
+				telemetry = { enable = false },
 			},
 		},
 	})
@@ -60,6 +56,7 @@ local config = function()
 			"typescriptreact",
 			"javascript",
 			"javascriptreact",
+			"ejs",
 		},
 		commands = {
 			TypeScriptOrganizeImports = typescript_organise_imports,
@@ -97,16 +94,7 @@ local config = function()
 		},
 	})
 
-	-- perl
-	lspconfig.perlnavigator.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"perl",
-		},
-	})
-
-	-- typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
+	-- typescriptreact, javascriptreact, css, sass, scss, less, ejs
 	lspconfig.emmet_ls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -118,8 +106,6 @@ local config = function()
 			"sass",
 			"scss",
 			"less",
-			"svelte",
-			"vue",
 			"html",
 			"ejs",
 		},
@@ -179,14 +165,19 @@ local config = function()
 		},
 	})
 
+	for type, icon in pairs(diagnostic_signs) do
+		local hl = "DiagnosticSign" .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+	end
+
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 
 	local flake8 = require("efmls-configs.linters.flake8")
 	local black = require("efmls-configs.formatters.black")
 
-	local eslint_d = require("efmls-configs.linters.eslint_d")
-	local prettierd = require("efmls-configs.formatters.prettier_d")
+	local eslint = require("efmls-configs.linters.eslint")
+	local prettier_d = require("efmls-configs.formatters.prettier_d")
 
 	local fixjson = require("efmls-configs.formatters.fixjson")
 
@@ -208,14 +199,11 @@ local config = function()
 			"python",
 			"typescript",
 			"json",
-			"jsonc",
 			"sh",
 			"javascript",
 			"javascriptreact",
 			"typescript",
 			"typescriptreact",
-			"svelte",
-			"vue",
 			"markdown",
 			"docker",
 			"css",
@@ -237,22 +225,19 @@ local config = function()
 			languages = {
 				lua = { luacheck, stylua },
 				python = { flake8, black },
-				typescript = { eslint_d, prettierd },
-				json = { eslint_d, fixjson },
-				jsonc = { eslint_d, fixjson },
+				typescript = { eslint, prettier_d },
+				json = { eslint, fixjson },
 				sh = { shellcheck, shfmt },
-				javascript = { eslint_d, prettierd },
-				javascriptreact = { eslint_d, prettierd },
-				typescriptreact = { eslint_d, prettierd },
-				svelte = { eslint_d, prettierd },
-				vue = { eslint_d, prettierd },
-				markdown = { prettierd },
-				html = { djlint, prettierd },
-				css = { stylelint, prettierd },
+				javascript = { eslint, prettier_d },
+				javascriptreact = { eslint, prettier_d },
+				typescriptreact = { eslint, prettier_d },
+				markdown = { prettier_d },
+				html = { djlint, prettier_d },
+				css = { stylelint, prettier_d },
 				c = { clangformat, cpplint },
 				cpp = { clangformat, cpplint },
-				docker = { hadolint, prettierd },
-				ejs = { eslint_d, prettierd },
+				docker = { hadolint, prettier_d },
+				ejs = { eslint, prettier_d },
 			},
 		},
 	})

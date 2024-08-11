@@ -2,12 +2,12 @@ return {
 	"numToStr/Comment.nvim",
 	opts = {
 		toggler = {
-			line = "gtc",
-			block = "gtb",
+			line = "gcc",
+			block = "gbc",
 		},
 		opleader = {
-			line = "goc",
-			block = "gob",
+			line = "gc",
+			block = "gb",
 		},
 	},
 	lazy = false,

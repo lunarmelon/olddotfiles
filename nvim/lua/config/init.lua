@@ -15,6 +15,7 @@ require("config.globals")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+require("config.helpers")
 
 local plugins = "plugins"
 
@@ -39,7 +40,7 @@ local opts = {
 		},
 	},
 	change_detection = {
-		notify = true,
+		notify = false,
 	},
 }
 

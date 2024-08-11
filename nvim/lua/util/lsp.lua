@@ -1,38 +1,39 @@
-local keymap = vim.keymap
+local mapkey = require("util.keymapper").mapvimkey
 
 local M = {}
 
--- set keymaps on the active lsp server
 M.on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-	keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- go to declaration
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits
-	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-	keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show diagnostics for line
-	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-	keymap.set("n", "<leader>pd", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-	keymap.set("n", "<leader>nd", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation of what is under the cursor
-	keymap.set("n", "<leader>lo", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
+	mapkey("<leader>fd", "Lspsaga finder", "n", opts) -- go to definition
+	mapkey("<leader>gd", "Lspsaga peek_definition", "n", opts) -- peak definition
+	mapkey("<leader>gD", "Lspsaga goto_definition", "n", opts) -- go to definition
+	mapkey("<leader>gS", "vsplit | Lspsaga goto_definition", "n", opts) -- go to definition
+	mapkey("<leader>ca", "Lspsaga code_action", "n", opts) -- see available code actions
+	mapkey("<leader>rn", "Lspsaga rename", "n", opts) -- smart rename
+	mapkey("<leader>D", "Lspsaga show_line_diagnostics", "n", opts) -- show  diagnostics for line
+	mapkey("<leader>d", "Lspsaga show_cursor_diagnostics", "n", opts) -- show diagnostics for cursor
+	mapkey("<leader>pd", "Lspsaga diagnostic_jump_prev", "n", opts) -- jump to prev diagnostic in buffer
+	mapkey("<leader>nd", "Lspsaga diagnostic_jump_next", "n", opts) -- jump to next diagnostic in buffer
+	mapkey("K", "Lspsaga hover_doc", "n", opts) -- show documentation for what is under cursor
 
 	if client.name == "pyright" then
-		keymap.set("n", "<leader>oi", "<cmd>PyrightOrganizeImports<CR>", opts) -- organise imports
+		mapkey("<leader>oi", "PyrightOrganizeImports", "n", opts) -- organise imports
+		mapkey("<leader>db", "DapToggleBreakpoint", "n", opts) -- toggle breakpoint
+		mapkey("<leader>dr", "DapContinue", "n", opts) -- continue/invoke debugger
+		mapkey("<leader>dt", "lua require('dap-python').test_method()", "n", opts) -- run tests
 	end
 
 	if client.name == "tsserver" then
-		keymap.set("n", "<leader>oi", "TypescriptOrganizeImports", opts)
+		mapkey("<leader>oi", "TypeScriptOrganizeImports", "n", opts) -- organise imports
 	end
 end
 
 M.typescript_organise_imports = {
-	description = "Organise imports",
+	description = "Organise Imports",
 	function()
 		local params = {
-			command = "typescript.organizeImports",
+			command = "_typescript.organizeImports",
 			arguments = { vim.fn.expand("%:p") },
 		}
 		-- reorganise imports

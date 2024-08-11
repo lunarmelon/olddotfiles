@@ -27,6 +27,8 @@ local mason_lspconfig = {
 			"lua_ls",
 			"emmet_ls",
 			"jsonls",
+			"clangd",
+			"dockerls",
 		},
 		automatic_installation = true,
 	},
