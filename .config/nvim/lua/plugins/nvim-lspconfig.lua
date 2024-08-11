@@ -165,6 +165,15 @@ local config = function()
 		},
 	})
 
+	-- Toml
+	lspconfig.taplo.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"toml",
+		},
+	})
+
 	for type, icon in pairs(diagnostic_signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -210,8 +219,8 @@ local config = function()
 			"c",
 			"cpp",
 			"perl",
-			"java",
 			"ejs",
+			"toml",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -237,7 +246,7 @@ local config = function()
 				c = { clangformat, cpplint },
 				cpp = { clangformat, cpplint },
 				docker = { hadolint, prettier_d },
-				ejs = { eslint, prettier_d },
+				ejs = { djlint, prettier_d },
 			},
 		},
 	})

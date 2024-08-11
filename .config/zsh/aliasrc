@@ -31,7 +31,6 @@ alias nws='newsboat'
 alias print-colors='sh ~/.repos/scripts/print_colors.sh'
 
 # Misc
-alias rel='source $ZDOTDIR/.zshrc'
 alias neof='neofetch'
 alias ht='htop'
 alias bt='bpytop'
