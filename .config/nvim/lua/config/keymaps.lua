@@ -22,3 +22,9 @@ keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
 
 -- Term toggle
 keymap.set("n", "<leader>t", ":terminal<CR>", opts)
+
+-- Tmux navigation
+--[[ keymap.set("n", "<M-h>", "<cmd> TmuxNavigateLeft<CR>", opts) -- Navigate left
+keymap.set("n", "<M-j>", "<cmd> TmuxNavigateDown<CR>", opts) -- Navigate down
+keymap.set("n", "<M-k>", "<cmd> TmuxNavigateUp<CR>", opts) -- Navigate up
+keymap.set("n", "<M-l>", "<cmd> TmuxNavigateRight<CR>", opts) -- Navigate right ]]

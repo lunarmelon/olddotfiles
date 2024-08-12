@@ -188,6 +188,7 @@ local config = function()
 	local eslint = require("efmls-configs.linters.eslint")
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
 
+	local biome = require("efmls-configs.formatters.biome")
 	local fixjson = require("efmls-configs.formatters.fixjson")
 
 	local shellcheck = require("efmls-configs.linters.shellcheck")
@@ -235,7 +236,8 @@ local config = function()
 				lua = { luacheck, stylua },
 				python = { flake8, black },
 				typescript = { eslint, prettier_d },
-				json = { eslint, fixjson },
+				json = { biome, fixjson },
+				jsonc = { biome, fixjson },
 				sh = { shellcheck, shfmt },
 				javascript = { eslint, prettier_d },
 				javascriptreact = { eslint, prettier_d },

@@ -1,6 +1,3 @@
-export ZDOTDIR="$HOME/.config/zsh"
-export ZSHRC="$HOME/.zshrc"
-
 [ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
 
