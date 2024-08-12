@@ -210,6 +210,7 @@ local config = function()
 			"typescript",
 			"json",
 			"sh",
+			"html",
 			"javascript",
 			"javascriptreact",
 			"typescript",
