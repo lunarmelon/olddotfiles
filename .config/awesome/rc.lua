@@ -8,13 +8,6 @@ local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
--- Collision
-require("collision")()
--- Awesome-wm-widgets
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
-local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
-local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -262,15 +255,7 @@ awful.screen.connect_for_each_screen(function(s)
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			--wibox.widget.systray(),
-			brightness_widget({
-				program = "brightnessctl",
-				step = 2,
-				tooltip = true,
-			}),
-			batteryarc_widget(),
-			volume_widget(),
 			mytextclock,
-			logout_menu_widget(),
 		},
 	})
 end)
@@ -647,6 +632,7 @@ awful.spawn.with_shell("$HOME/.config/awesome/autostart.sh")
 gears.timer({
 	timeout = 30,
 	autostart = true,
+	call_now = true,
 	callback = function()
 		collectgarbage()
 	end,

@@ -75,6 +75,12 @@ local config = function()
 		capabilities = capabilities,
 		on_attach = on_attach,
 		filetypes = { "json", "jsonc" },
+		settings = {
+			json = {
+				schemas = require("schemastore").json.schemas(),
+				validate = { enable = true },
+			},
+		},
 	})
 
 	-- docker
@@ -89,9 +95,17 @@ local config = function()
 		on_attach = on_attach,
 		filetypes = {
 			"sh",
+			"zsh",
+			"bash",
 			"aliasrc",
 			"zshrc",
 			"optionrc",
+		},
+		settings = {
+			bashIde = {
+				shellcheckPath = "",
+				shfmt = { spaceRedirects = true },
+			},
 		},
 	})
 
@@ -175,42 +189,85 @@ local config = function()
 		},
 	})
 
+	-- Markdown
+	lspconfig.marksman.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"markdown",
+		},
+	})
+
+	-- Perl
+	lspconfig.perlnavigator.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"perl",
+		},
+	})
+
+	-- Julia
+	lspconfig.julials.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"julia",
+		},
+	})
+
+	-- Go
+	lspconfig.gopls.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"go",
+		},
+	})
+
 	for type, icon in pairs(diagnostic_signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 	end
 
+	-- Lua
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 
+	-- Python
 	local flake8 = require("efmls-configs.linters.flake8")
 	local black = require("efmls-configs.formatters.black")
 
+	-- Javascript, Typescript, JSON, React
 	local eslint = require("efmls-configs.linters.eslint")
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
-
-	local biome = require("efmls-configs.formatters.biome")
 	local fixjson = require("efmls-configs.formatters.fixjson")
 
+	-- Bash
 	local shellcheck = require("efmls-configs.linters.shellcheck")
 	local shfmt = require("efmls-configs.formatters.shfmt")
 
+	-- C, C++
 	local cpplint = require("efmls-configs.linters.cpplint")
 	local clangformat = require("efmls-configs.formatters.clang_format")
 
-	local djlint = require("efmls-configs.linters.djlint")
-
-	local stylelint = require("efmls-configs.linters.stylelint")
-
+	-- Docker
 	local hadolint = require("efmls-configs.linters.hadolint")
+
+	-- Markdown
+	local markdown_lint = require("efmls-configs.linters.markdownlint")
+
+	-- Go
+	local goimports = require("efmls-configs.formatters.goimports")
 
 	lspconfig.efm.setup({
 		filetypes = {
 			"lua",
 			"python",
-			"typescript",
 			"json",
+			"jsonc",
 			"sh",
+			"bash",
 			"html",
 			"javascript",
 			"javascriptreact",
@@ -222,8 +279,9 @@ local config = function()
 			"c",
 			"cpp",
 			"perl",
-			"ejs",
 			"toml",
+			"julia",
+			"go",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -238,19 +296,21 @@ local config = function()
 				lua = { luacheck, stylua },
 				python = { flake8, black },
 				typescript = { eslint, prettier_d },
-				json = { biome, fixjson },
-				jsonc = { biome, fixjson },
+				json = { eslint, fixjson },
+				jsonc = { eslint, fixjson },
 				sh = { shellcheck, shfmt },
+				bash = { shellcheck, shfmt },
+				zsh = { shfmt },
 				javascript = { eslint, prettier_d },
 				javascriptreact = { eslint, prettier_d },
 				typescriptreact = { eslint, prettier_d },
-				markdown = { prettier_d },
-				html = { djlint, prettier_d },
-				css = { stylelint, prettier_d },
+				markdown = { markdown_lint, prettier_d },
+				html = { prettier_d },
+				css = { prettier_d },
 				c = { clangformat, cpplint },
 				cpp = { clangformat, cpplint },
 				docker = { hadolint, prettier_d },
-				ejs = { djlint, prettier_d },
+				go = { goimports },
 			},
 		},
 	})
@@ -268,5 +328,7 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-nvim-lua",
+		"b0o/schemastore.nvim",
 	},
 }

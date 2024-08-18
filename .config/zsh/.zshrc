@@ -1,4 +1,3 @@
-
 # Download zinit
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
@@ -13,12 +12,13 @@ source "${ZINIT_HOME}/zinit.zsh"
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
 
 # PATH
-export PATH=$PATH:/home/melon/.local/kitty.app/bin
-export PATH=$PATH:/home/melon/.spicetify
-export PATH=$PATH:/home/melon/.cargo/bin
-export PATH=$PATH:/home/melon/.local/share/bob/nvim-bin
-export PATH=$PATH:/home/melon/.fzf/bin
+export PATH=$PATH:$HOME/.local/kitty.app/bin
+export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+export PATH=$PATH:$HOME/.fzf/bin
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/.juliaup/bin
+export PATH=$PATH:$HOME/.local/bin
 
 # Load completion
 autoload -U compinit && compinit
@@ -45,7 +45,6 @@ export TERMINAL="kitty"
 export BROWSER="librewolf"
 export EDITOR="nvim"
 export VISUAL="nvim"
-
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

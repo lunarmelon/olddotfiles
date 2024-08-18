@@ -23,6 +23,9 @@ keymap.set("n", "<S-Tab>", ":bp<CR>", opts)
 -- Term toggle
 keymap.set("n", "<leader>t", ":terminal<CR>", opts)
 
+-- Color picker
+keymap.set("n", "<leader>cp", ":CccPick<CR>", opts)
+
 -- Tmux navigation
 --[[ keymap.set("n", "<M-h>", "<cmd> TmuxNavigateLeft<CR>", opts) -- Navigate left
 keymap.set("n", "<M-j>", "<cmd> TmuxNavigateDown<CR>", opts) -- Navigate down

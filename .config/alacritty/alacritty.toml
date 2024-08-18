@@ -1,14 +1,10 @@
 # Theme
-import = [
-   "~/.config/alacritty/alacritty-themes/catppuccin-mocha.toml"
-]
+import = ["~/.config/alacritty/alacritty-themes/catppuccin-mocha.toml"]
 
 [window]
 opacity = 1.0
-
 padding.x = 10
 padding.y = 10
-
 decorations = "Full"
 decorations_theme_variant = "Dark"
 
@@ -17,5 +13,4 @@ normal.family = "JetBrainsMono Nerd Font"
 bold.family = "JetBrainsMono Nerd Font"
 italic.family = "JetBrainsMono Nerd Font"
 bold_italic.family = "JetBrainsMono Nerd Font"
-
 size = 14.0
