@@ -1,14 +1,40 @@
+
+# Download zinit
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Source aliases and options for zsh
 [ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
 
+# PATH
+export PATH=$PATH:/home/melon/.local/kitty.app/bin
+export PATH=$PATH:/home/melon/.spicetify
+export PATH=$PATH:/home/melon/.cargo/bin
+export PATH=$PATH:/home/melon/.local/share/bob/nvim-bin
+export PATH=$PATH:/home/melon/.fzf/bin
+export PATH=$PATH:/usr/local/go/bin
+
+# Load completion
+autoload -U compinit && compinit
+zinit cdreplay -q
+
 # Plugins
-source "${ZDOTDIR}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-source "${ZDOTDIR}/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-source "${ZDOTDIR}/plugins/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh"
-source "${ZDOTDIR}/plugins/zsh-autopair/autopair.zsh"
-source "${ZDOTDIR}/plugins/supercharge/supercharge.plugin.zsh"
-source "${ZDOTDIR}/plugins/exa/eza.plugin.zsh"
-source "${ZDOTDIR}/plugins/sudo/sudo.plugin.zsh"
+zinit light Aloxaf/fzf-tab
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-history-substring-search
+zinit light hlissner/zsh-autopair
+zinit light zap-zsh/exa
+
+# Snippets
+zinit snippet OMZP::sudo
 
 # Exports
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -20,11 +46,6 @@ export BROWSER="librewolf"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-export PATH=$PATH:/home/melon/.local/kitty.app/bin
-export PATH=$PATH:/home/melon/.spicetify
-export PATH=$PATH:/home/melon/.cargo/bin
-export PATH=$PATH:/home/melon/.local/share/bob/nvim-bin
-export PATH=$PATH:/usr/local/go/bin
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -40,13 +61,16 @@ bindkey '^[0B' history-substring-search-down
 
 # History
 HISTSIZE=110000
-SAVEHIST=100000
-HISTFILE=~/.cache/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTFILE=$XDG_CACHE_HOME/.zsh_history
+HISTDUP=erase
 
-# Completion
-zstyle :compinstall ~/.config/zsh/.zshrc
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-autoload -Uz compinit
-compinit
-
+# Shell integrations
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/melon.toml)"
+eval "$(fzf --zsh)"

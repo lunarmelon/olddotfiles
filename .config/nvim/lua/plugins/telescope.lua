@@ -61,4 +61,5 @@ return {
 	},
 	keys = keys,
 	config = config,
+	lazy = false,
 }

@@ -91,6 +91,7 @@ local config = function()
 			"sh",
 			"aliasrc",
 			"zshrc",
+			"optionrc",
 		},
 	})
 

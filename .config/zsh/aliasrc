@@ -27,6 +27,9 @@ alias gs='git switch'
 # Newsboat
 alias nws='newsboat'
 
+# Display images in terminal with Kitty
+alias icat='kitten icat'
+
 # Scripts
 alias print-colors='sh ~/.repos/scripts/print_colors.sh'
 
@@ -35,4 +38,5 @@ alias neof='neofetch'
 alias ff='fastfetch'
 alias ht='htop'
 alias bt='btop'
+alias rel='source $ZSHRC'
 alias :q='echo "No estas en Vim, chamaco baboso"'
