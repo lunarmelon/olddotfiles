@@ -1,2 +1,5 @@
-# zsh
+# zsh completion
 .zcompdump
+
+# lazy.nvim cache file
+lazy-lock.json
