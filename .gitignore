@@ -3,3 +3,6 @@
 
 # lazy.nvim cache file
 lazy-lock.json
+
+# btop log file
+btop.log
