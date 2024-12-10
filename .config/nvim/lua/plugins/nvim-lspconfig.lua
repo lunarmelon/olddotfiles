@@ -126,18 +126,6 @@ local config = function()
 		},
 	})
 
-	-- emmet
-	lspconfig.emmet_language_server.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"html",
-			"typescriptreact",
-			"javascriptreact",
-			"ejs",
-		},
-	})
-
 	-- html
 	lspconfig.html.setup({
 		capabilities = capabilities,
