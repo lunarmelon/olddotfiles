@@ -56,7 +56,6 @@ local config = function()
 			"typescriptreact",
 			"javascript",
 			"javascriptreact",
-			"ejs",
 		},
 		commands = {
 			TypeScriptOrganizeImports = typescript_organise_imports,
@@ -109,7 +108,7 @@ local config = function()
 		},
 	})
 
-	-- typescriptreact, javascriptreact, css, sass, scss, less, ejs
+	-- typescriptreact, javascriptreact, css, sass, scss, less
 	lspconfig.emmet_ls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -122,7 +121,6 @@ local config = function()
 			"scss",
 			"less",
 			"html",
-			"ejs",
 		},
 	})
 
@@ -134,7 +132,6 @@ local config = function()
 			"javascriptreact",
 			"typescriptreact",
 			"html",
-			"ejs",
 		},
 	})
 
@@ -144,6 +141,8 @@ local config = function()
 		on_attach = on_attach,
 		filetypes = {
 			"css",
+			"scss",
+			"sass",
 		},
 	})
 
@@ -168,7 +167,7 @@ local config = function()
 		},
 	})
 
-	-- Toml
+	-- toml
 	lspconfig.taplo.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -177,7 +176,7 @@ local config = function()
 		},
 	})
 
-	-- Markdown
+	-- markdown
 	lspconfig.marksman.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -186,123 +185,13 @@ local config = function()
 		},
 	})
 
-	-- Perl
+	-- perl
 	lspconfig.perlnavigator.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 		filetypes = {
 			"perl",
 		},
-	})
-
-	-- Julia
-	lspconfig.julials.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"julia",
-		},
-		julia_env_path = "$HOME/.julia/environments/nvim-lspconfig/",
-		on_new_config = function(config, workspace_dir)
-			local _ = require("mason-core.functional")
-			local fs = require("mason-core.fs")
-			local path = require("mason-core.path")
-
-			-- The default configuration used by `mason-lspconfig`:
-			--
-			--   https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/server_configurations/julials/init.lua
-			--
-			-- has the following logic to obtain the current environment path:
-			--
-			--   1. Check if `env_path` is defined.
-			--   2. Check if we are in a Julia project.
-			--   3. Call julia to return the current env path.
-			--
-			-- However, the third step causes a significant slow down when Julia is called in a
-			-- single file mode because it must wait loading Julia. Here, we will invert the
-			-- logic:
-			--
-			--   1. Check if we are in a Julia project.
-			--   2. Check if `env_path` is defined.
-			--   3. Call julia to return the current env path.
-			--
-			-- Hence, if we define `env_path`, we can still use the project folder as root and
-			-- avoid the slowdown in the single file case.
-			local env_path = nil
-			local file_exists = _.compose(fs.sync.file_exists, path.concat, _.concat({ workspace_dir }))
-			if
-				(file_exists({ "Project.toml" }) and file_exists({ "Manifest.toml" }))
-				or (file_exists({ "JuliaProject.toml" }) and file_exists({ "JuliaManifest.toml" }))
-			then
-				env_path = workspace_dir
-			end
-
-			if not env_path then
-				env_path = config.julia_env_path and vim.fn.expand(config.julia_env_path)
-			end
-
-			if not env_path then
-				local ok, env = pcall(vim.fn.system, {
-					"julia",
-					"--startup-file=no",
-					"--history-file=no",
-					"-e",
-					"using Pkg; print(dirname(Pkg.Types.Context().env.project_file))",
-				})
-				if ok then
-					env_path = env
-				end
-			end
-
-			config.cmd = {
-				vim.fn.exepath("julia-lsp"),
-				env_path,
-			}
-			config.cmd_env = vim.tbl_extend("keep", config.cmd_env or {}, {
-				SYMBOL_SERVER = config.symbol_server,
-				SYMBOL_CACHE_DOWNLOAD = (config.symbol_cache_download == false) and "0" or "1",
-			})
-		end,
-		settings = {
-			julia = {
-				inlayHints = {
-					static = {
-						enabled = true,
-						variableTypes = {
-							enabled = false,
-						},
-					},
-				},
-			},
-		},
-	})
-
-	-- Go
-	lspconfig.gopls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"go",
-		},
-	})
-
-	-- Rust
-	lspconfig.rust_analyzer.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"rust",
-		},
-	})
-
-	-- Ruby
-	lspconfig.ruby_lsp.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"ruby",
-		},
-		root_dir = lspconfig.util.root_pattern("Gemfile", "package.json", "config.ru"),
 	})
 
 	for type, icon in pairs(diagnostic_signs) do
@@ -323,12 +212,12 @@ local config = function()
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
 	local fixjson = require("efmls-configs.formatters.fixjson")
 
-	-- Bash
+	-- Bash, Zsh
 	local shellcheck = require("efmls-configs.linters.shellcheck")
 	local shfmt = require("efmls-configs.formatters.shfmt")
+	local beautysh = require("efmls-configs.formatters.beautysh")
 
 	-- C, C++
-	-- local cpplint = require("efmls-configs.linters.cpplint")
 	local clangformat = require("efmls-configs.formatters.clang_format")
 
 	-- Docker
@@ -337,12 +226,8 @@ local config = function()
 	-- Markdown
 	local markdown_lint = require("efmls-configs.linters.markdownlint")
 
-	-- Go
-	local goimports = require("efmls-configs.formatters.goimports")
-	local golangci_lint = require("efmls-configs.linters.golangci_lint")
-
-	-- Ruby
-	local rubocop = require("efmls-configs.linters.rubocop")
+	-- Toml
+	local taplo = require("efmls-configs.formatters.taplo")
 
 	lspconfig.efm.setup({
 		filetypes = {
@@ -365,10 +250,7 @@ local config = function()
 			"cpp",
 			"perl",
 			"toml",
-			"julia",
-			"go",
-			"rust",
-			"ruby",
+			"yaml",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -381,13 +263,13 @@ local config = function()
 		settings = {
 			languages = {
 				lua = { luacheck, stylua },
-				python = { black },
+				python = { flake8, black },
 				typescript = { eslint, prettier_d },
 				json = { eslint, fixjson },
 				jsonc = { eslint, fixjson },
 				sh = { shellcheck, shfmt },
 				bash = { shellcheck, shfmt },
-				zsh = { shfmt },
+				zsh = { beautysh },
 				javascript = { eslint, prettier_d },
 				javascriptreact = { eslint, prettier_d },
 				typescriptreact = { eslint, prettier_d },
@@ -397,9 +279,7 @@ local config = function()
 				c = { clangformat },
 				cpp = { clangformat },
 				docker = { hadolint, prettier_d },
-				go = { goimports, golangci_lint },
-				rust = {},
-				ruby = { rubocop },
+				toml = { taplo },
 			},
 		},
 	})

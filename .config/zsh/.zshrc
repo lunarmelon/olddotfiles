@@ -1,7 +1,7 @@
 # Download zinit
 if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source zinit
@@ -12,14 +12,12 @@ source "${ZINIT_HOME}/zinit.zsh"
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
 
 # PATH
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/.local/kitty.app/bin
-export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+# export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:$HOME/.local/kitty.app/bin
+# export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/.rvm/bin
-export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$PATH:$HOME/.fzf/bin
-export PATH=$PATH:$HOME/.juliaup/bin
+# export PATH=$PATH:$HOME/.cargo/bin
+# export PATH=$PATH:$HOME/.fzf/bin
 
 # Load completion
 autoload -U compinit && compinit
@@ -50,8 +48,6 @@ export VISUAL="nvim"
 # NPM and Ruby version managers
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Substring search keybinds
 zmodload zsh/terminfo

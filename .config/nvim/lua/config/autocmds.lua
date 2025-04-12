@@ -21,15 +21,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-
--- LSP Signature
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(args)
-		local bufnr = args.buf
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if vim.tbl_contains({ "null-ls" }, client.name) then
-			return
-		end
-		require("lsp_signature").on_attach({}, bufnr)
-	end,
-})
