@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 
 -- Directory navigation
 keymap.set("n", "<leader>f", ":NvimTreeFocus<CR>", opts)
-keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+keymap.set("n", "<leader>e", ":Neotree toggle<CR>", opts)
 
 -- Pane navigation
 keymap.set("n", "<C-h>", "<C-w>h", opts) -- Navigate left

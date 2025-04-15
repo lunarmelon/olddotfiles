@@ -16,13 +16,13 @@ local config = function()
 			"regex",
 			"rust",
 			"markdown",
+			"markdown_inline",
 			"json",
 			"javascript",
 			"typescript",
 			"yaml",
 			"html",
 			"css",
-			"markdown",
 			"bash",
 			"lua",
 			"dockerfile",
@@ -51,4 +51,7 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = false,
 	config = config,
+	dependencies = {
+		"OXY2DEV/markview.nvim",
+	},
 }

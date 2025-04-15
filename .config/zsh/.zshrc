@@ -16,7 +16,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 # export PATH=$PATH:$HOME/.local/kitty.app/bin
 # export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 export PATH=$PATH:$HOME/.local/bin
-# export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.cargo/bin
 # export PATH=$PATH:$HOME/.fzf/bin
 
 # Load completion

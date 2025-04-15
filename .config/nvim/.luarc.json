@@ -1,10 +1,4 @@
 {
-	"diagnostics.globals": [
-		"vim",
-		"modkey"
-	],
-	"diagnostics.disable": [
-		"different-requires",
-		"missing-fields"
-	]
+  "diagnostics.globals": ["vim", "modkey"],
+  "diagnostics.disable": ["different-requires", "missing-fields"]
 }

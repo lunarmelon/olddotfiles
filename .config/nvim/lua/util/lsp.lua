@@ -24,6 +24,10 @@ M.on_attach = function(client, bufnr)
 		mapkey("<leader>dt", "lua require('dap-python').test_method()", "n", opts) -- run tests
 	end
 
+	if client.name == "ruff" then
+		client.server_capabilities.documentFormattingProvider = true
+	end
+
 	if client.name == "tsserver" then
 		mapkey("<leader>oi", "TypeScriptOrganizeImports", "n", opts) -- organise imports
 	end
